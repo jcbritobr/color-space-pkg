@@ -2,3 +2,5 @@ demo/lib/
 demo/backup/
 colorpkg/lib/
 colorpkg/backup/
+demo/colorspacedemo.dbg
+demo/colorspacedemo.exe
