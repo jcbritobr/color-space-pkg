@@ -48,7 +48,8 @@ type
     procedure OnRGBChange(Sender: TObject);
     procedure OnRGBPress(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
-    procedure OnRGBLeave(Sender: TObject);
+    procedure OnRGBUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure OnHSVChange(Sender: TObject);
   private
     FHSVData: THSVColorSpace;
@@ -100,13 +101,18 @@ begin
   end;
 end;
 
+{$PUSH}
+{$WARN 5024 OFF : Parameter "$1" not used}
 procedure TFrmMainFrame.OnRGBPress(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
   FIsRGBProcessing := True;
 end;
 
-procedure TFrmMainFrame.OnRGBLeave(Sender: TObject);
+{$POP}
+
+procedure TFrmMainFrame.OnRGBUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
 begin
   FIsRGBProcessing := False;
 end;
@@ -216,14 +222,17 @@ begin
     TkbSaturation.Position := FHSVData.Saturation;
     TkbValue.Position := FHSVData.Value;
 
-    TkbRed.Position := ColorData.rgbtRed;
-    TkbGreen.Position := ColorData.rgbtGreen;
-    TkbBlue.Position := ColorData.rgbtBlue;
+    if not FIsRGBProcessing then
+    begin
+      TkbRed.Position := ColorData.rgbtRed;
+      TkbGreen.Position := ColorData.rgbtGreen;
+      TkbBlue.Position := ColorData.rgbtBlue;
+    end;
+
 
     ShpColor.Brush.Color := RGBToColor(ColorData.rgbtRed, ColorData.rgbtGreen,
       ColorData.rgbtBlue);
 
-    LblOutput.Caption := ColorToString(ShpColor.Brush.Color);
     LblHueOutput.Caption := FHSVData.Hue.ToString;
     LblSatOutput.Caption := FHSVData.Saturation.ToString;
     LblValueOutput.Caption := FHSVData.Value.ToString;
@@ -231,6 +240,8 @@ begin
     LblRedOutput.Caption := ColorData.rgbtRed.ToString;
     LblGreenOutput.Caption := ColorData.rgbtGreen.ToString;
     LblBlueOutput.Caption := ColorData.rgbtBlue.ToString;
+
+    LblOutput.Caption := ColorToString(ShpColor.Brush.Color);
   end;
 end;
 

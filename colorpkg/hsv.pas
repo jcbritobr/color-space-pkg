@@ -83,8 +83,7 @@ begin
   Result := FValue;
 end;
 
-function THSVColorSpace.CreateRGBTriple(const ARed, AGreen, ABlue: Byte
-  ): TRGBTriple;
+function THSVColorSpace.CreateRGBTriple(const ARed, AGreen, ABlue: Byte): TRGBTriple;
 begin
   with Result do
   begin
@@ -150,6 +149,7 @@ var
   Delta: Integer;
   Min: Integer;
 begin
+
   Min := MinValue([ARGB.rgbtRed, ARGB.rgbtGreen, ARGB.rgbtBlue]);
   FValue := MaxValue([ARGB.rgbtRed, ARGB.rgbtGreen, ARGB.rgbtBlue]);
 
@@ -180,9 +180,7 @@ begin
       FHue := FHue + 360;
   end;
   FOnChangeValue(Self);
-
 end;
 
 
 end.
-

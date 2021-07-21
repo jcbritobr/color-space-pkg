@@ -37,7 +37,7 @@ object FrmMainFrame: TFrmMainFrame
       OnChange = OnRGBChange
       Position = 0
       OnMouseDown = OnRGBPress
-      OnMouseLeave = OnRGBLeave
+      OnMouseUp = OnRGBUp
       ParentShowHint = False
       TabOrder = 0
     end
@@ -71,7 +71,7 @@ object FrmMainFrame: TFrmMainFrame
       OnChange = OnRGBChange
       Position = 0
       OnMouseDown = OnRGBPress
-      OnMouseLeave = OnRGBLeave
+      OnMouseUp = OnRGBUp
       TabOrder = 1
     end
     object ImgBlue: TImage
@@ -98,7 +98,7 @@ object FrmMainFrame: TFrmMainFrame
       OnChange = OnRGBChange
       Position = 0
       OnMouseDown = OnRGBPress
-      OnMouseLeave = OnRGBLeave
+      OnMouseUp = OnRGBUp
       TabOrder = 2
     end
     object LblRedOutput: TLabel
