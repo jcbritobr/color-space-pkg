@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ComCtrls,
-  ExtCtrls, LCLType, HSV;
+  ExtCtrls, LCLType, Buttons, HSV, Clipbrd;
 
 type
   THSVGradient = (GrHue, GrSaturation, GrValue);
@@ -14,6 +14,7 @@ type
   { TFrmMainFrame }
 
   TFrmMainFrame = class(TForm)
+    BtnToClipboard: TBitBtn;
     GrbRGB: TGroupBox;
     GrbHSV: TGroupBox;
     GrbColor: TGroupBox;
@@ -44,6 +45,7 @@ type
     TkbGreen: TTrackBar;
     TkbHue: TTrackBar;
     TkbValue: TTrackBar;
+    procedure BtnToClipboardClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure OnRGBChange(Sender: TObject);
     procedure OnRGBPress(Sender: TObject; Button: TMouseButton;
@@ -85,6 +87,14 @@ begin
   CreateHSVGradient(GrValue, ImgValue);
 end;
 
+procedure TFrmMainFrame.BtnToClipboardClick(Sender: TObject);
+var
+   ColorData: TRGBTriple;
+begin
+  ColorData := FHSVData.ToRGBTriple;
+  ClipBoard.AsText:= '#' + IntToHex(ColorData.rgbtRed, 2) + IntToHex(ColorData.rgbtGreen, 2) + IntToHex(ColorData.rgbtBlue, 2);
+end;
+
 procedure TFrmMainFrame.OnRGBChange(Sender: TObject);
 var
   ColorData: TRGBTriple;
@@ -108,14 +118,16 @@ procedure TFrmMainFrame.OnRGBPress(Sender: TObject; Button: TMouseButton;
 begin
   FIsRGBProcessing := True;
 end;
-
 {$POP}
 
+{$PUSH}
+{$WARN 5024 OFF : Parameter "$1" not used}
 procedure TFrmMainFrame.OnRGBUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
   FIsRGBProcessing := False;
 end;
+{$POP}
 
 procedure TFrmMainFrame.OnHSVChange(Sender: TObject);
 begin
