@@ -23,6 +23,12 @@ type
     ImgGreen: TImage;
     ImgHue: TImage;
     ImgValue: TImage;
+    LblBlueOutput: TLabel;
+    LblGreenOutput: TLabel;
+    LblRedOutput: TLabel;
+    LblValueOutput: TLabel;
+    LblSatOutput: TLabel;
+    LblHueOutput: TLabel;
     LblOutput: TLabel;
     LblColorCode: TLabel;
     LblBlue: TLabel;
@@ -218,6 +224,13 @@ begin
       ColorData.rgbtBlue);
 
     LblOutput.Caption := ColorToString(ShpColor.Brush.Color);
+    LblHueOutput.Caption := FHSVData.Hue.ToString;
+    LblSatOutput.Caption := FHSVData.Saturation.ToString;
+    LblValueOutput.Caption := FHSVData.Value.ToString;
+
+    LblRedOutput.Caption := ColorData.rgbtRed.ToString;
+    LblGreenOutput.Caption := ColorData.rgbtGreen.ToString;
+    LblBlueOutput.Caption := ColorData.rgbtBlue.ToString;
   end;
 end;
 

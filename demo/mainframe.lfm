@@ -101,6 +101,30 @@ object FrmMainFrame: TFrmMainFrame
       OnMouseLeave = OnRGBLeave
       TabOrder = 2
     end
+    object LblRedOutput: TLabel
+      Left = 236
+      Height = 15
+      Top = 13
+      Width = 20
+      Caption = 'Red'
+      ParentColor = False
+    end
+    object LblGreenOutput: TLabel
+      Left = 236
+      Height = 15
+      Top = 80
+      Width = 31
+      Caption = 'Green'
+      ParentColor = False
+    end
+    object LblBlueOutput: TLabel
+      Left = 236
+      Height = 15
+      Top = 149
+      Width = 23
+      Caption = 'Blue'
+      ParentColor = False
+    end
   end
   object GrbHSV: TGroupBox
     Left = 19
@@ -182,6 +206,30 @@ object FrmMainFrame: TFrmMainFrame
       Left = 14
       Height = 15
       Top = 149
+      Width = 28
+      Caption = 'Value'
+      ParentColor = False
+    end
+    object LblHueOutput: TLabel
+      Left = 236
+      Height = 15
+      Top = 13
+      Width = 22
+      Caption = 'Hue'
+      ParentColor = False
+    end
+    object LblSatOutput: TLabel
+      Left = 236
+      Height = 15
+      Top = 80
+      Width = 16
+      Caption = 'Sat'
+      ParentColor = False
+    end
+    object LblValueOutput: TLabel
+      Left = 236
+      Height = 15
+      Top = 152
       Width = 28
       Caption = 'Value'
       ParentColor = False
