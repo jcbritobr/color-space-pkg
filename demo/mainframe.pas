@@ -24,7 +24,7 @@ type
     ImgHue: TImage;
     ImgValue: TImage;
     LblOutput: TLabel;
-    LblOutputColor: TLabel;
+    LblColorCode: TLabel;
     LblBlue: TLabel;
     LblSaturation: TLabel;
     LblRed: TLabel;
@@ -39,11 +39,14 @@ type
     TkbHue: TTrackBar;
     TkbValue: TTrackBar;
     procedure FormCreate(Sender: TObject);
-    procedure TkbBlueChange(Sender: TObject);
-    procedure TkbGreenChange(Sender: TObject);
-    procedure TkbRedChange(Sender: TObject);
+    procedure OnRGBChange(Sender: TObject);
+    procedure OnRGBPress(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure OnRGBLeave(Sender: TObject);
+    procedure OnHSVChange(Sender: TObject);
   private
     FHSVData: THSVColorSpace;
+    FIsRGBProcessing: Boolean;
     procedure CreateRGBGradient(const RedFactor, GreenFactor, BlueFactor: Integer;
       const Image: TImage);
     procedure CreateHSVGradient(const Gradient: THSVGradient; const Image: TImage);
@@ -64,6 +67,7 @@ implementation
 
 procedure TFrmMainFrame.FormCreate(Sender: TObject);
 begin
+  FIsRGBProcessing := False;
   FHSVData := THSVColorSpace.Create;
   FHSVData.OnChangeValue := @OnChangeHSVData;
   CreateRGBGradient(1, 0, 0, ImgRed);
@@ -74,45 +78,43 @@ begin
   CreateHSVGradient(GrValue, ImgValue);
 end;
 
-procedure TFrmMainFrame.TkbBlueChange(Sender: TObject);
+procedure TFrmMainFrame.OnRGBChange(Sender: TObject);
 var
   ColorData: TRGBTriple;
 begin
-  if Sender <> nil then
+  if (Sender <> nil) and (FIsRGBProcessing) then
   begin
-    ColorData.rgbtBlue := TTrackBar(Sender).Position;
-    ColorData.rgbtRed := TkbRed.Position;
-    ColorData.rgbtGreen := TkbGreen.Position;
+    ColorData := FHSVData.ToRGBTriple;
+    case (Sender as TTrackBar).Name of
+      'TkbRed': ColorData.rgbtRed := TTrackBar(Sender).Position;
+      'TkbGreen': ColorData.rgbtGreen := TTrackBar(Sender).Position;
+      'TkbBlue': ColorData.rgbtBlue := TTrackBar(Sender).Position;
+    end;
     FHSVData.FromRGBTriple(ColorData);
   end;
 end;
 
-procedure TFrmMainFrame.TkbGreenChange(Sender: TObject);
-var
-  ColorData: TRGBTriple;
+procedure TFrmMainFrame.OnRGBPress(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
 begin
-  if Sender <> nil then
-  begin
-    ColorData.rgbtGreen := TTrackBar(Sender).Position;
-    ColorData.rgbtRed := TkbRed.Position;
-    ColorData.rgbtBlue := TkbBlue.Position;
-    FHSVData.FromRGBTriple(ColorData);
-  end;
-
+  FIsRGBProcessing := True;
 end;
 
-procedure TFrmMainFrame.TkbRedChange(Sender: TObject);
-var
-  ColorData: TRGBTriple;
+procedure TFrmMainFrame.OnRGBLeave(Sender: TObject);
 begin
-  if Sender <> nil then
-  begin
-    ColorData.rgbtRed := TTrackBar(Sender).Position;
-    ColorData.rgbtGreen := TkbGreen.Position;
-    ColorData.rgbtBlue := TkbBlue.Position;
-    FHSVData.FromRGBTriple(ColorData);
-  end;
+  FIsRGBProcessing := False;
+end;
 
+procedure TFrmMainFrame.OnHSVChange(Sender: TObject);
+begin
+  if (Sender <> nil) and (not FIsRGBProcessing) then
+  begin
+    case (Sender as TTrackBar).Name of
+      'TkbHue': FHSVData.Hue := TTrackBar(Sender).Position;
+      'TkbSaturation': FHSVData.Saturation := TTrackBar(Sender).Position;
+      'TkbValue': FHSVData.Value := TTrackBar(Sender).Position;
+    end;
+  end;
 end;
 
 procedure TFrmMainFrame.CreateRGBGradient(
@@ -203,11 +205,18 @@ begin
   if ASender <> nil then
   begin
     ColorData := THSVColorSpace(ASender).ToRGBTriple;
+
+    TkbHue.Position := FHSVData.Hue;
+    TkbSaturation.Position := FHSVData.Saturation;
+    TkbValue.Position := FHSVData.Value;
+
+    TkbRed.Position := ColorData.rgbtRed;
+    TkbGreen.Position := ColorData.rgbtGreen;
+    TkbBlue.Position := ColorData.rgbtBlue;
+
     ShpColor.Brush.Color := RGBToColor(ColorData.rgbtRed, ColorData.rgbtGreen,
       ColorData.rgbtBlue);
-    TkbHue.Position:= FHSVData.Hue;
-    TkbSaturation.Position:=FHSVData.Saturation;
-    TkbValue.Position:=FHSVData.Value;
+
     LblOutput.Caption := ColorToString(ShpColor.Brush.Color);
   end;
 end;

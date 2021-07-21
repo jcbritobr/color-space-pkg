@@ -24,7 +24,7 @@ type
     function GetHue: Integer;
     function GetSaturation: Integer;
     function GetValue: Integer;
-    function ToRGBTriple(const ARed, AGreen, ABlue: Byte): TRGBTriple;
+    function CreateRGBTriple(const ARed, AGreen, ABlue: Byte): TRGBTriple;
   public
     constructor Create;
     constructor Create(AHue, ASaturation, AValue: Integer);
@@ -83,7 +83,8 @@ begin
   Result := FValue;
 end;
 
-function THSVColorSpace.ToRGBTriple(const ARed, AGreen, ABlue: Byte): TRGBTriple;
+function THSVColorSpace.CreateRGBTriple(const ARed, AGreen, ABlue: Byte
+  ): TRGBTriple;
 begin
   with Result do
   begin
@@ -117,7 +118,7 @@ var
   VS: Integer;
 begin
   if FSaturation = 0 then
-    Result := ToRGBTriple(FValue, FValue, FValue)
+    Result := CreateRGBTriple(FValue, FValue, FValue)
   else
   begin
     if FHue = 360 then
@@ -132,14 +133,14 @@ begin
     T := FValue - (VS * (60 - F)) div divisor;
 
     case HTemp of
-      0: Result := ToRGBTriple(FValue, T, P);
-      1: Result := ToRGBTriple(Q, FValue, P);
-      2: Result := ToRGBTriple(P, FValue, T);
-      3: Result := ToRGBTriple(P, Q, FValue);
-      4: Result := ToRGBTriple(T, P, FValue);
-      5: Result := ToRGBTriple(FValue, P, Q);
+      0: Result := CreateRGBTriple(FValue, T, P);
+      1: Result := CreateRGBTriple(Q, FValue, P);
+      2: Result := CreateRGBTriple(P, FValue, T);
+      3: Result := CreateRGBTriple(P, Q, FValue);
+      4: Result := CreateRGBTriple(T, P, FValue);
+      5: Result := CreateRGBTriple(FValue, P, Q);
       else
-        Result := ToRGBTriple(0, 0, 0);
+        Result := CreateRGBTriple(0, 0, 0);
     end;
   end;
 end;

@@ -34,8 +34,10 @@ object FrmMainFrame: TFrmMainFrame
       Width = 270
       Frequency = 50
       Max = 255
-      OnChange = TkbRedChange
+      OnChange = OnRGBChange
       Position = 0
+      OnMouseDown = OnRGBPress
+      OnMouseLeave = OnRGBLeave
       ParentShowHint = False
       TabOrder = 0
     end
@@ -66,8 +68,10 @@ object FrmMainFrame: TFrmMainFrame
       Width = 270
       Frequency = 50
       Max = 255
-      OnChange = TkbGreenChange
+      OnChange = OnRGBChange
       Position = 0
+      OnMouseDown = OnRGBPress
+      OnMouseLeave = OnRGBLeave
       TabOrder = 1
     end
     object ImgBlue: TImage
@@ -91,8 +95,10 @@ object FrmMainFrame: TFrmMainFrame
       Width = 272
       Frequency = 50
       Max = 255
-      OnChange = TkbBlueChange
+      OnChange = OnRGBChange
       Position = 0
+      OnMouseDown = OnRGBPress
+      OnMouseLeave = OnRGBLeave
       TabOrder = 2
     end
   end
@@ -126,29 +132,31 @@ object FrmMainFrame: TFrmMainFrame
       Width = 270
       Frequency = 60
       Max = 360
+      OnChange = OnHSVChange
       Position = 0
       TabOrder = 0
     end
     object ImgSaturation: TImage
       Left = 14
       Height = 16
-      Top = 96
+      Top = 99
       Width = 256
     end
     object TkbSaturation: TTrackBar
       Left = 8
       Height = 25
-      Top = 117
+      Top = 120
       Width = 270
       Frequency = 60
       Max = 255
+      OnChange = OnHSVChange
       Position = 0
       TabOrder = 1
     end
     object LblSaturation: TLabel
       Left = 14
       Height = 15
-      Top = 77
+      Top = 80
       Width = 54
       Caption = 'Saturation'
       ParentColor = False
@@ -160,6 +168,7 @@ object FrmMainFrame: TFrmMainFrame
       Width = 270
       Frequency = 60
       Max = 255
+      OnChange = OnHSVChange
       Position = 0
       TabOrder = 2
     end
@@ -195,16 +204,16 @@ object FrmMainFrame: TFrmMainFrame
       Pen.Color = clNone
     end
   end
-  object LblOutputColor: TLabel
+  object LblColorCode: TLabel
     Left = 19
     Height = 15
     Top = 384
-    Width = 32
-    Caption = 'Color:'
+    Width = 31
+    Caption = 'Code:'
     ParentColor = False
   end
   object LblOutput: TLabel
-    Left = 64
+    Left = 54
     Height = 15
     Top = 384
     Width = 54

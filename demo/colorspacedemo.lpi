@@ -114,6 +114,7 @@
         <Filename Value="mainframe.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmMainFrame"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="MainFrame"/>
       </Unit1>
