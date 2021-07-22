@@ -11,7 +11,7 @@
         <UnitName Value="ColorSpaceDemo"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="20"/>
-        <UsageCount Value="41"/>
+        <UsageCount Value="70"/>
       </Unit0>
       <Unit1>
         <Filename Value="mainframe.pas"/>
@@ -21,9 +21,9 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="MainFrame"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="90"/>
-        <CursorPos X="128" Y="95"/>
-        <UsageCount Value="41"/>
+        <TopLine Value="228"/>
+        <CursorPos X="43" Y="256"/>
+        <UsageCount Value="70"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -31,9 +31,9 @@
         <Filename Value="..\colorpkg\hsv.pas"/>
         <UnitName Value="HSV"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="18"/>
-        <CursorPos X="16" Y="150"/>
-        <UsageCount Value="21"/>
+        <TopLine Value="157"/>
+        <CursorPos X="147" Y="191"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -41,151 +41,151 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="6"/>
         <CursorPos Y="38"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="5"/>
       </Unit3>
       <Unit4>
         <Filename Value="C:\Bin\lazarus\lcl\include\rasterimage.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="943"/>
         <CursorPos Y="972"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="5"/>
       </Unit4>
       <Unit5>
         <Filename Value="C:\Bin\lazarus\lcl\include\trackbar.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="157"/>
         <CursorPos Y="176"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="5"/>
       </Unit5>
       <Unit6>
         <Filename Value="C:\Bin\lazarus\lcl\include\control.inc"/>
         <EditorIndex Value="1"/>
         <TopLine Value="4438"/>
         <CursorPos Y="4456"/>
-        <UsageCount Value="17"/>
+        <UsageCount Value="31"/>
         <Loaded Value="True"/>
       </Unit6>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="mainframe.pas"/>
-        <Caret Line="129" Column="5" TopLine="118"/>
+        <Caret Line="99" Column="20" TopLine="77"/>
       </Position1>
       <Position2>
-        <Filename Value="mainframe.pas"/>
-        <Caret Line="124" TopLine="77"/>
+        <Filename Value="..\colorpkg\hsv.pas"/>
+        <Caret Line="152" Column="28" TopLine="130"/>
       </Position2>
       <Position3>
         <Filename Value="mainframe.pas"/>
-        <Caret Line="99" Column="20" TopLine="77"/>
+        <Caret Line="100" Column="12" TopLine="75"/>
       </Position3>
       <Position4>
         <Filename Value="..\colorpkg\hsv.pas"/>
-        <Caret Line="152" Column="28" TopLine="130"/>
+        <Caret Line="194" Column="5" TopLine="140"/>
       </Position4>
       <Position5>
-        <Filename Value="mainframe.pas"/>
-        <Caret Line="100" Column="12" TopLine="75"/>
+        <Filename Value="..\colorpkg\hsv.pas"/>
+        <Caret Line="155" TopLine="140"/>
       </Position5>
       <Position6>
         <Filename Value="..\colorpkg\hsv.pas"/>
-        <Caret Line="194" Column="5" TopLine="140"/>
+        <Caret Line="156" TopLine="140"/>
       </Position6>
       <Position7>
         <Filename Value="..\colorpkg\hsv.pas"/>
-        <Caret Line="155" TopLine="140"/>
+        <Caret Line="191" TopLine="127"/>
       </Position7>
       <Position8>
         <Filename Value="..\colorpkg\hsv.pas"/>
-        <Caret Line="156" TopLine="140"/>
+        <Caret Line="155" TopLine="127"/>
       </Position8>
       <Position9>
         <Filename Value="..\colorpkg\hsv.pas"/>
-        <Caret Line="191" TopLine="127"/>
+        <Caret Line="156" TopLine="127"/>
       </Position9>
       <Position10>
         <Filename Value="..\colorpkg\hsv.pas"/>
-        <Caret Line="155" TopLine="127"/>
+        <Caret Line="160" Column="7" TopLine="142"/>
       </Position10>
       <Position11>
         <Filename Value="..\colorpkg\hsv.pas"/>
-        <Caret Line="156" TopLine="127"/>
+        <Caret Line="155" TopLine="142"/>
       </Position11>
       <Position12>
         <Filename Value="..\colorpkg\hsv.pas"/>
-        <Caret Line="160" Column="7" TopLine="142"/>
+        <Caret Line="156" TopLine="142"/>
       </Position12>
       <Position13>
         <Filename Value="..\colorpkg\hsv.pas"/>
-        <Caret Line="155" TopLine="142"/>
+        <Caret Line="157" TopLine="142"/>
       </Position13>
       <Position14>
         <Filename Value="..\colorpkg\hsv.pas"/>
-        <Caret Line="156" TopLine="142"/>
+        <Caret Line="159" TopLine="151"/>
       </Position14>
       <Position15>
         <Filename Value="..\colorpkg\hsv.pas"/>
-        <Caret Line="157" TopLine="142"/>
+        <Caret Line="155" TopLine="147"/>
       </Position15>
       <Position16>
         <Filename Value="..\colorpkg\hsv.pas"/>
-        <Caret Line="159" TopLine="151"/>
+        <Caret Line="157" TopLine="147"/>
       </Position16>
       <Position17>
         <Filename Value="..\colorpkg\hsv.pas"/>
-        <Caret Line="155" TopLine="147"/>
+        <Caret Line="194" TopLine="132"/>
       </Position17>
       <Position18>
         <Filename Value="..\colorpkg\hsv.pas"/>
-        <Caret Line="157" TopLine="147"/>
+        <Caret Line="155" TopLine="132"/>
       </Position18>
       <Position19>
         <Filename Value="..\colorpkg\hsv.pas"/>
-        <Caret Line="194" TopLine="132"/>
+        <Caret Line="157" TopLine="132"/>
       </Position19>
       <Position20>
         <Filename Value="..\colorpkg\hsv.pas"/>
-        <Caret Line="155" TopLine="132"/>
+        <Caret Line="156" Column="50" TopLine="128"/>
       </Position20>
       <Position21>
         <Filename Value="..\colorpkg\hsv.pas"/>
-        <Caret Line="157" TopLine="132"/>
+        <Caret Line="155" TopLine="128"/>
       </Position21>
       <Position22>
         <Filename Value="..\colorpkg\hsv.pas"/>
-        <Caret Line="156" Column="50" TopLine="128"/>
+        <Caret Line="163" TopLine="131"/>
       </Position22>
       <Position23>
         <Filename Value="..\colorpkg\hsv.pas"/>
-        <Caret Line="155" TopLine="128"/>
+        <Caret Line="164" TopLine="132"/>
       </Position23>
       <Position24>
-        <Filename Value="..\colorpkg\hsv.pas"/>
-        <Caret Line="163" TopLine="131"/>
+        <Filename Value="mainframe.pas"/>
+        <Caret Line="97" TopLine="86"/>
       </Position24>
       <Position25>
-        <Filename Value="..\colorpkg\hsv.pas"/>
-        <Caret Line="164" TopLine="132"/>
+        <Filename Value="mainframe.pas"/>
+        <Caret Line="229" Column="47" TopLine="207"/>
       </Position25>
       <Position26>
         <Filename Value="mainframe.pas"/>
-        <Caret Line="97" TopLine="86"/>
+        <Caret Line="120" Column="7" TopLine="100"/>
       </Position26>
       <Position27>
         <Filename Value="mainframe.pas"/>
-        <Caret Line="229" Column="47" TopLine="207"/>
+        <Caret Line="127" Column="7" TopLine="107"/>
       </Position27>
       <Position28>
         <Filename Value="mainframe.pas"/>
-        <Caret Line="120" Column="7" TopLine="100"/>
+        <Caret Line="145" Column="43" TopLine="107"/>
       </Position28>
       <Position29>
-        <Filename Value="mainframe.pas"/>
-        <Caret Line="127" Column="7" TopLine="107"/>
+        <Filename Value="..\colorpkg\hsv.pas"/>
+        <Caret Line="37" Column="45" TopLine="11"/>
       </Position29>
       <Position30>
-        <Filename Value="mainframe.pas"/>
-        <Caret Line="145" Column="43" TopLine="107"/>
+        <Filename Value="..\colorpkg\hsv.pas"/>
+        <Caret Line="191" Column="146" TopLine="154"/>
       </Position30>
     </JumpHistory>
     <RunParams>

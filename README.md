@@ -1,4 +1,4 @@
-# A color space package for Freepascal.
+# A color space package for Free Pascal.
 The package currently supports conversions between RGB and HSV color spaces. A demo is included as documentation for use case.
 There is a nice article about [HSV color space here](https://en.wikipedia.org/wiki/HSL_and_HSV).
 

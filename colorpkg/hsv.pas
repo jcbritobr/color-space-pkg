@@ -34,6 +34,7 @@ type
     property Saturation: Integer read GetSaturation write SetSaturation;
     property Value: Integer read GetValue write SetValue;
     property OnChangeValue: TChangeValueEvent read FOnChangeValue write FOnChangeValue;
+    function ToString: ansistring; override;
   end;
 
 implementation
@@ -180,6 +181,14 @@ begin
       FHue := FHue + 360;
   end;
   FOnChangeValue(Self);
+end;
+
+function THSVColorSpace.ToString: ansistring;
+var
+  ColorData: TRGBTriple;
+begin
+  ColorData:= ToRGBTriple;
+  Result:= Format('H:%d, S:%d, V:%d - [R:%d, G:%d, B:%d]', [FHue, FSaturation, FValue, ColorData.rgbtRed, ColorData.rgbtGreen, ColorData.rgbtBlue]);
 end;
 
 

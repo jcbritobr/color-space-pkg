@@ -253,7 +253,7 @@ begin
     LblGreenOutput.Caption := ColorData.rgbtGreen.ToString;
     LblBlueOutput.Caption := ColorData.rgbtBlue.ToString;
 
-    LblOutput.Caption := ColorToString(ShpColor.Brush.Color);
+    LblOutput.Caption := FHSVData.ToString;
   end;
 end;
 
