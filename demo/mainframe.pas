@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ComCtrls,
-  ExtCtrls, LCLType, Buttons, HSV, Clipbrd;
+  ExtCtrls, LCLType, Buttons, HSV, CMY, Clipbrd;
 
 type
   THSVGradient = (GrHue, GrSaturation, GrValue);
@@ -15,18 +15,31 @@ type
 
   TFrmMainFrame = class(TForm)
     BtnToClipboard: TBitBtn;
+    BtnCMYToClipboard: TBitBtn;
+    GrbCMY: TGroupBox;
     GrbRGB: TGroupBox;
     GrbHSV: TGroupBox;
     GrbColor: TGroupBox;
+    GbColor: TGroupBox;
     ImgBlue: TImage;
+    ImgCyan: TImage;
     ImgSaturation: TImage;
     ImgRed: TImage;
     ImgGreen: TImage;
     ImgHue: TImage;
+    ImgMagenta: TImage;
     ImgValue: TImage;
+    ImgYellow: TImage;
     LblBlueOutput: TLabel;
+    LblColorCode1: TLabel;
     LblGreenOutput: TLabel;
+    LblCyan: TLabel;
+    LblCyanOutput: TLabel;
+    LblCMYOutput: TLabel;
     LblRedOutput: TLabel;
+    LblMagentaOutput: TLabel;
+    LblMagenta: TLabel;
+    LblYellow: TLabel;
     LblValueOutput: TLabel;
     LblSatOutput: TLabel;
     LblHueOutput: TLabel;
@@ -38,16 +51,25 @@ type
     LblGreen: TLabel;
     LblHue: TLabel;
     LblValue: TLabel;
+    LblYellowOutput: TLabel;
+    PgMain: TPageControl;
+    ShpCMYColor: TShape;
     ShpColor: TShape;
+    TbHSV: TTabSheet;
+    TbCMY: TTabSheet;
     TkbBlue: TTrackBar;
+    TkbCyan: TTrackBar;
     TkbSaturation: TTrackBar;
     TkbRed: TTrackBar;
     TkbGreen: TTrackBar;
     TkbHue: TTrackBar;
+    TkbMagenta: TTrackBar;
     TkbValue: TTrackBar;
+    TkbYellow: TTrackBar;
     procedure BtnToClipboardClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure OnRGBChange(Sender: TObject);
+    procedure OnCMYChange(Sender: TObject);
     procedure OnRGBPress(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure OnRGBUp(Sender: TObject; Button: TMouseButton;
@@ -55,11 +77,13 @@ type
     procedure OnHSVChange(Sender: TObject);
   private
     FHSVData: THSVColorSpace;
+    FCMYData: TCMYColorSpace;
     FIsRGBProcessing: Boolean;
     procedure CreateRGBGradient(const RedFactor, GreenFactor, BlueFactor: Integer;
       const Image: TImage);
     procedure CreateHSVGradient(const Gradient: THSVGradient; const Image: TImage);
     procedure OnChangeHSVData(ASender: TObject);
+    procedure OnChangeCMYData(ASender: TObject);
   public
     destructor Destroy; override;
 
@@ -78,21 +102,27 @@ procedure TFrmMainFrame.FormCreate(Sender: TObject);
 begin
   FIsRGBProcessing := False;
   FHSVData := THSVColorSpace.Create;
+  FCMYData := TCMYColorSpace.Create;
   FHSVData.OnChangeValue := @OnChangeHSVData;
+  FCMYData.OnChangeValue := @OnChangeCMYData;
   CreateRGBGradient(1, 0, 0, ImgRed);
   CreateRGBGradient(0, 1, 0, ImgGreen);
   CreateRGBGradient(0, 0, 1, ImgBlue);
   CreateHSVGradient(GrHue, ImgHue);
   CreateHSVGradient(GrSaturation, ImgSaturation);
   CreateHSVGradient(GrValue, ImgValue);
+  CreateRGBGradient(0, 1, 1, ImgCyan);
+  CreateRGBGradient(1, 0, 1, ImgMagenta);
+  CreateRGBGradient(1, 1, 0, ImgYellow);
 end;
 
 procedure TFrmMainFrame.BtnToClipboardClick(Sender: TObject);
 var
-   ColorData: TRGBTriple;
+  ColorData: TRGBTriple;
 begin
   ColorData := FHSVData.ToRGBTriple;
-  ClipBoard.AsText:= '#' + IntToHex(ColorData.rgbtRed, 2) + IntToHex(ColorData.rgbtGreen, 2) + IntToHex(ColorData.rgbtBlue, 2);
+  ClipBoard.AsText := '#' + IntToHex(ColorData.rgbtRed, 2) +
+    IntToHex(ColorData.rgbtGreen, 2) + IntToHex(ColorData.rgbtBlue, 2);
 end;
 
 procedure TFrmMainFrame.OnRGBChange(Sender: TObject);
@@ -106,8 +136,24 @@ begin
       'TkbRed': ColorData.rgbtRed := TTrackBar(Sender).Position;
       'TkbGreen': ColorData.rgbtGreen := TTrackBar(Sender).Position;
       'TkbBlue': ColorData.rgbtBlue := TTrackBar(Sender).Position;
+      else
+        ;
     end;
     FHSVData.FromRGBTriple(ColorData);
+  end;
+end;
+
+procedure TFrmMainFrame.OnCMYChange(Sender: TObject);
+begin
+  if Sender <> nil then
+  begin
+    case (Sender as TTrackBar).Name of
+      'TkbCyan': FCMYData.Cyan := (Sender as TTrackBar).Position;
+      'TkbMagenta': FCMYData.Magenta := (Sender as TTrackBar).Position;
+      'TkbYellow': FCMYData.Yellow := (Sender as TTrackBar).Position;
+      else
+        ;
+    end;
   end;
 end;
 
@@ -118,6 +164,7 @@ procedure TFrmMainFrame.OnRGBPress(Sender: TObject; Button: TMouseButton;
 begin
   FIsRGBProcessing := True;
 end;
+
 {$POP}
 
 {$PUSH}
@@ -127,6 +174,7 @@ procedure TFrmMainFrame.OnRGBUp(Sender: TObject; Button: TMouseButton;
 begin
   FIsRGBProcessing := False;
 end;
+
 {$POP}
 
 procedure TFrmMainFrame.OnHSVChange(Sender: TObject);
@@ -137,6 +185,8 @@ begin
       'TkbHue': FHSVData.Hue := TTrackBar(Sender).Position;
       'TkbSaturation': FHSVData.Saturation := TTrackBar(Sender).Position;
       'TkbValue': FHSVData.Value := TTrackBar(Sender).Position;
+      else
+        ;
     end;
   end;
 end;
@@ -257,9 +307,23 @@ begin
   end;
 end;
 
+procedure TFrmMainFrame.OnChangeCMYData(ASender: TObject);
+var
+  ColorData: TRGBTriple;
+begin
+  LblCMYOutput.Caption := (ASender as TCMYColorSpace).ToString;
+  ColorData := (ASender as TCMYColorSpace).ToRGBTriple;
+  LblCyanOutput.Caption:= (ASender as TCMYColorSpace).Cyan.ToString;
+  LblMagentaOutput.Caption:= (ASender as TCMYColorSpace).Magenta.ToString;
+  LblYellowOutput.Caption:= (ASender as TCMYColorSpace).Yellow.ToString;
+  ShpCMYColor.Brush.Color := RGBToColor(ColorData.rgbtRed,
+    ColorData.rgbtGreen, ColorData.rgbtBlue);
+end;
+
 destructor TFrmMainFrame.Destroy;
 begin
   FHSVData.Free;
+  FCMYData.Free;
   inherited Destroy;
 end;
 

@@ -8,7 +8,7 @@ unit color;
 interface
 
 uses
-  HSV, LazarusPackageIntf;
+  HSV, CMY, LazarusPackageIntf;
 
 implementation
 

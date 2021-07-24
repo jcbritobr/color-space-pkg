@@ -1,318 +1,527 @@
 object FrmMainFrame: TFrmMainFrame
-  Left = 576
-  Height = 475
-  Top = 274
+  Left = 528
+  Height = 492
+  Top = 252
   Width = 614
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Color Space Demo'
-  ClientHeight = 475
+  ClientHeight = 492
   ClientWidth = 614
   OnCreate = FormCreate
   LCLVersion = '2.0.12.0'
-  object GrbRGB: TGroupBox
-    Left = 312
-    Height = 248
-    Top = 8
-    Width = 285
-    Caption = 'RGB Color Space'
-    ClientHeight = 228
-    ClientWidth = 281
+  object PgMain: TPageControl
+    Left = 8
+    Height = 484
+    Top = 2
+    Width = 601
+    ActivePage = TbHSV
+    TabIndex = 0
     TabOrder = 0
-    object LblRed: TLabel
-      Left = 14
-      Height = 15
-      Top = 13
-      Width = 20
-      Caption = 'Red'
-      ParentColor = False
+    object TbHSV: TTabSheet
+      Caption = 'HSV'
+      ClientHeight = 456
+      ClientWidth = 593
+      object GrbHSV: TGroupBox
+        Left = 4
+        Height = 248
+        Top = 8
+        Width = 285
+        Caption = 'HSV Color Space'
+        ClientHeight = 228
+        ClientWidth = 281
+        TabOrder = 0
+        object LblHue: TLabel
+          Left = 14
+          Height = 15
+          Top = 13
+          Width = 22
+          Caption = 'Hue'
+          ParentColor = False
+        end
+        object ImgHue: TImage
+          Left = 14
+          Height = 16
+          Top = 32
+          Width = 256
+        end
+        object TkbHue: TTrackBar
+          Left = 8
+          Height = 25
+          Top = 53
+          Width = 270
+          Frequency = 60
+          Max = 360
+          OnChange = OnHSVChange
+          Position = 0
+          TabOrder = 0
+        end
+        object ImgSaturation: TImage
+          Left = 14
+          Height = 16
+          Top = 99
+          Width = 256
+        end
+        object TkbSaturation: TTrackBar
+          Left = 8
+          Height = 25
+          Top = 120
+          Width = 270
+          Frequency = 60
+          Max = 255
+          OnChange = OnHSVChange
+          Position = 0
+          TabOrder = 1
+        end
+        object LblSaturation: TLabel
+          Left = 14
+          Height = 15
+          Top = 80
+          Width = 54
+          Caption = 'Saturation'
+          ParentColor = False
+        end
+        object TkbValue: TTrackBar
+          Left = 8
+          Height = 25
+          Top = 189
+          Width = 270
+          Frequency = 60
+          Max = 255
+          OnChange = OnHSVChange
+          Position = 0
+          TabOrder = 2
+        end
+        object ImgValue: TImage
+          Left = 14
+          Height = 16
+          Top = 168
+          Width = 256
+        end
+        object LblValue: TLabel
+          Left = 14
+          Height = 15
+          Top = 149
+          Width = 28
+          Caption = 'Value'
+          ParentColor = False
+        end
+        object LblHueOutput: TLabel
+          Left = 236
+          Height = 15
+          Top = 13
+          Width = 22
+          Caption = 'Hue'
+          ParentColor = False
+        end
+        object LblSatOutput: TLabel
+          Left = 236
+          Height = 15
+          Top = 80
+          Width = 16
+          Caption = 'Sat'
+          ParentColor = False
+        end
+        object LblValueOutput: TLabel
+          Left = 236
+          Height = 15
+          Top = 152
+          Width = 28
+          Caption = 'Value'
+          ParentColor = False
+        end
+      end
+      object GrbRGB: TGroupBox
+        Left = 302
+        Height = 248
+        Top = 8
+        Width = 285
+        Caption = 'RGB Color Space'
+        ClientHeight = 228
+        ClientWidth = 281
+        TabOrder = 1
+        object LblRed: TLabel
+          Left = 14
+          Height = 15
+          Top = 13
+          Width = 20
+          Caption = 'Red'
+          ParentColor = False
+        end
+        object TkbRed: TTrackBar
+          Left = 8
+          Height = 25
+          Top = 53
+          Width = 270
+          Frequency = 50
+          Max = 255
+          OnChange = OnRGBChange
+          Position = 0
+          OnMouseDown = OnRGBPress
+          OnMouseUp = OnRGBUp
+          ParentShowHint = False
+          TabOrder = 0
+        end
+        object ImgRed: TImage
+          Left = 14
+          Height = 16
+          Top = 32
+          Width = 256
+        end
+        object LblGreen: TLabel
+          Left = 14
+          Height = 15
+          Top = 80
+          Width = 31
+          Caption = 'Green'
+          ParentColor = False
+        end
+        object ImgGreen: TImage
+          Left = 14
+          Height = 16
+          Top = 99
+          Width = 256
+        end
+        object TkbGreen: TTrackBar
+          Left = 8
+          Height = 25
+          Top = 120
+          Width = 270
+          Frequency = 50
+          Max = 255
+          OnChange = OnRGBChange
+          Position = 0
+          OnMouseDown = OnRGBPress
+          OnMouseUp = OnRGBUp
+          TabOrder = 1
+        end
+        object ImgBlue: TImage
+          Left = 14
+          Height = 16
+          Top = 168
+          Width = 256
+        end
+        object LblBlue: TLabel
+          Left = 14
+          Height = 15
+          Top = 149
+          Width = 23
+          Caption = 'Blue'
+          ParentColor = False
+        end
+        object TkbBlue: TTrackBar
+          Left = 8
+          Height = 25
+          Top = 189
+          Width = 272
+          Frequency = 50
+          Max = 255
+          OnChange = OnRGBChange
+          Position = 0
+          OnMouseDown = OnRGBPress
+          OnMouseUp = OnRGBUp
+          TabOrder = 2
+        end
+        object LblRedOutput: TLabel
+          Left = 236
+          Height = 15
+          Top = 13
+          Width = 20
+          Caption = 'Red'
+          ParentColor = False
+        end
+        object LblGreenOutput: TLabel
+          Left = 236
+          Height = 15
+          Top = 80
+          Width = 31
+          Caption = 'Green'
+          ParentColor = False
+        end
+        object LblBlueOutput: TLabel
+          Left = 236
+          Height = 15
+          Top = 149
+          Width = 23
+          Caption = 'Blue'
+          ParentColor = False
+        end
+      end
+      object BtnToClipboard: TBitBtn
+        Left = 4
+        Height = 30
+        Hint = 'Copy to clipboard'
+        Top = 396
+        Width = 75
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          000000000000000000000000000000000000292623FF292623FF292623FF2926
+          23FF292623FF292623FF292623FF292623FF0000000000000000000000000000
+          000000000000000000000000000000000000292623FF00000000000000000000
+          0000000000000000000000000000292623FF0000000000000000000000000000
+          000000000000292623FF292623FF292623FF292623FF00000000000000000000
+          0000000000000000000000000000292623FF0000000000000000000000000000
+          000000000000292623FF0000000000000000292623FF00000000000000000000
+          0000000000000000000000000000292623FF0000000000000000000000000000
+          000000000000292623FF0000000000000000292623FF00000000000000000000
+          0000000000000000000000000000292623FF0000000000000000000000000000
+          000000000000292623FF0000000000000000292623FF00000000000000000000
+          0000000000000000000000000000292623FF0000000000000000000000000000
+          000000000000292623FF0000000000000000292623FF00000000000000000000
+          0000292623FF292623FF292623FF292623FF0000000000000000000000000000
+          000000000000292623FF0000000000000000292623FF00000000000000000000
+          0000292623FF292623FF292623FF292624880000000000000000000000000000
+          000000000000292623FF0000000000000000292623FF00000000000000000000
+          0000292623FF292623FF29262488000000000000000000000000000000000000
+          000000000000292623FF0000000000000000292623FF292623FF292623FF2926
+          23FF292623FF2926248800000000000000000000000000000000000000000000
+          000000000000292623FF000000000000000000000000292623FF292623FF2926
+          2488000000000000000000000000000000000000000000000000000000000000
+          000000000000292623FF292623FF292623FF292623FF292623FF292624880000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000
+        }
+        OnClick = BtnToClipboardClick
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 2
+      end
+      object LblOutput: TLabel
+        Left = 39
+        Height = 15
+        Top = 372
+        Width = 54
+        Caption = 'LblOutput'
+        ParentColor = False
+      end
+      object LblColorCode: TLabel
+        Left = 4
+        Height = 15
+        Top = 372
+        Width = 31
+        Caption = 'Code:'
+        ParentColor = False
+      end
+      object GrbColor: TGroupBox
+        Left = 4
+        Height = 105
+        Top = 261
+        Width = 583
+        Caption = 'Color'
+        ClientHeight = 85
+        ClientWidth = 579
+        TabOrder = 3
+        object ShpColor: TShape
+          Left = 8
+          Height = 75
+          Top = 0
+          Width = 562
+          Pen.Color = clNone
+        end
+      end
     end
-    object TkbRed: TTrackBar
-      Left = 8
-      Height = 25
-      Top = 53
-      Width = 270
-      Frequency = 50
-      Max = 255
-      OnChange = OnRGBChange
-      Position = 0
-      OnMouseDown = OnRGBPress
-      OnMouseUp = OnRGBUp
-      ParentShowHint = False
-      TabOrder = 0
+    object TbCMY: TTabSheet
+      Caption = 'CMY'
+      ClientHeight = 456
+      ClientWidth = 593
+      object GrbCMY: TGroupBox
+        Left = 4
+        Height = 248
+        Top = 8
+        Width = 285
+        Caption = 'CMY Color Space'
+        ClientHeight = 228
+        ClientWidth = 281
+        TabOrder = 0
+        object LblCyan: TLabel
+          Left = 14
+          Height = 15
+          Top = 13
+          Width = 27
+          Caption = 'Cyan'
+          ParentColor = False
+        end
+        object ImgCyan: TImage
+          Left = 14
+          Height = 16
+          Top = 32
+          Width = 256
+        end
+        object TkbCyan: TTrackBar
+          Left = 8
+          Height = 25
+          Top = 53
+          Width = 270
+          Frequency = 60
+          Max = 255
+          OnChange = OnCMYChange
+          Position = 0
+          TabOrder = 0
+        end
+        object ImgMagenta: TImage
+          Left = 14
+          Height = 16
+          Top = 99
+          Width = 256
+        end
+        object TkbMagenta: TTrackBar
+          Left = 8
+          Height = 25
+          Top = 120
+          Width = 270
+          Frequency = 60
+          Max = 255
+          OnChange = OnCMYChange
+          Position = 0
+          TabOrder = 1
+        end
+        object LblMagenta: TLabel
+          Left = 14
+          Height = 15
+          Top = 80
+          Width = 47
+          Caption = 'Magenta'
+          ParentColor = False
+        end
+        object TkbYellow: TTrackBar
+          Left = 8
+          Height = 25
+          Top = 189
+          Width = 270
+          Frequency = 60
+          Max = 255
+          OnChange = OnCMYChange
+          Position = 0
+          TabOrder = 2
+        end
+        object ImgYellow: TImage
+          Left = 14
+          Height = 16
+          Top = 168
+          Width = 256
+        end
+        object LblYellow: TLabel
+          Left = 14
+          Height = 15
+          Top = 149
+          Width = 34
+          Caption = 'Yellow'
+          ParentColor = False
+        end
+        object LblCyanOutput: TLabel
+          Left = 236
+          Height = 15
+          Top = 13
+          Width = 6
+          Caption = '0'
+          ParentColor = False
+        end
+        object LblMagentaOutput: TLabel
+          Left = 236
+          Height = 15
+          Top = 80
+          Width = 6
+          Caption = '0'
+          ParentColor = False
+        end
+        object LblYellowOutput: TLabel
+          Left = 236
+          Height = 15
+          Top = 152
+          Width = 6
+          Caption = '0'
+          ParentColor = False
+        end
+      end
+      object GbColor: TGroupBox
+        Left = 296
+        Height = 248
+        Top = 8
+        Width = 288
+        Caption = 'Color'
+        ClientHeight = 228
+        ClientWidth = 284
+        TabOrder = 1
+        object ShpCMYColor: TShape
+          Left = 8
+          Height = 217
+          Top = 0
+          Width = 269
+          Brush.Color = clSkyBlue
+          Pen.Color = clNone
+        end
+      end
+      object LblColorCode1: TLabel
+        Left = 4
+        Height = 15
+        Top = 264
+        Width = 31
+        Caption = 'Code:'
+        ParentColor = False
+      end
+      object LblCMYOutput: TLabel
+        Left = 39
+        Height = 15
+        Top = 264
+        Width = 80
+        Caption = 'LblCMYOutput'
+        ParentColor = False
+      end
+      object BtnCMYToClipboard: TBitBtn
+        Left = 4
+        Height = 30
+        Hint = 'Copy to clipboard'
+        Top = 288
+        Width = 75
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          000000000000000000000000000000000000292623FF292623FF292623FF2926
+          23FF292623FF292623FF292623FF292623FF0000000000000000000000000000
+          000000000000000000000000000000000000292623FF00000000000000000000
+          0000000000000000000000000000292623FF0000000000000000000000000000
+          000000000000292623FF292623FF292623FF292623FF00000000000000000000
+          0000000000000000000000000000292623FF0000000000000000000000000000
+          000000000000292623FF0000000000000000292623FF00000000000000000000
+          0000000000000000000000000000292623FF0000000000000000000000000000
+          000000000000292623FF0000000000000000292623FF00000000000000000000
+          0000000000000000000000000000292623FF0000000000000000000000000000
+          000000000000292623FF0000000000000000292623FF00000000000000000000
+          0000000000000000000000000000292623FF0000000000000000000000000000
+          000000000000292623FF0000000000000000292623FF00000000000000000000
+          0000292623FF292623FF292623FF292623FF0000000000000000000000000000
+          000000000000292623FF0000000000000000292623FF00000000000000000000
+          0000292623FF292623FF292623FF292624880000000000000000000000000000
+          000000000000292623FF0000000000000000292623FF00000000000000000000
+          0000292623FF292623FF29262488000000000000000000000000000000000000
+          000000000000292623FF0000000000000000292623FF292623FF292623FF2926
+          23FF292623FF2926248800000000000000000000000000000000000000000000
+          000000000000292623FF000000000000000000000000292623FF292623FF2926
+          2488000000000000000000000000000000000000000000000000000000000000
+          000000000000292623FF292623FF292623FF292623FF292623FF292624880000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000
+        }
+        OnClick = BtnToClipboardClick
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 2
+      end
     end
-    object ImgRed: TImage
-      Left = 14
-      Height = 16
-      Top = 32
-      Width = 256
-    end
-    object LblGreen: TLabel
-      Left = 14
-      Height = 15
-      Top = 80
-      Width = 31
-      Caption = 'Green'
-      ParentColor = False
-    end
-    object ImgGreen: TImage
-      Left = 14
-      Height = 16
-      Top = 99
-      Width = 256
-    end
-    object TkbGreen: TTrackBar
-      Left = 8
-      Height = 25
-      Top = 120
-      Width = 270
-      Frequency = 50
-      Max = 255
-      OnChange = OnRGBChange
-      Position = 0
-      OnMouseDown = OnRGBPress
-      OnMouseUp = OnRGBUp
-      TabOrder = 1
-    end
-    object ImgBlue: TImage
-      Left = 14
-      Height = 16
-      Top = 168
-      Width = 256
-    end
-    object LblBlue: TLabel
-      Left = 14
-      Height = 15
-      Top = 149
-      Width = 23
-      Caption = 'Blue'
-      ParentColor = False
-    end
-    object TkbBlue: TTrackBar
-      Left = 8
-      Height = 25
-      Top = 189
-      Width = 272
-      Frequency = 50
-      Max = 255
-      OnChange = OnRGBChange
-      Position = 0
-      OnMouseDown = OnRGBPress
-      OnMouseUp = OnRGBUp
-      TabOrder = 2
-    end
-    object LblRedOutput: TLabel
-      Left = 236
-      Height = 15
-      Top = 13
-      Width = 20
-      Caption = 'Red'
-      ParentColor = False
-    end
-    object LblGreenOutput: TLabel
-      Left = 236
-      Height = 15
-      Top = 80
-      Width = 31
-      Caption = 'Green'
-      ParentColor = False
-    end
-    object LblBlueOutput: TLabel
-      Left = 236
-      Height = 15
-      Top = 149
-      Width = 23
-      Caption = 'Blue'
-      ParentColor = False
-    end
-  end
-  object GrbHSV: TGroupBox
-    Left = 19
-    Height = 248
-    Top = 8
-    Width = 285
-    Caption = 'HSV Color Space'
-    ClientHeight = 228
-    ClientWidth = 281
-    TabOrder = 1
-    object LblHue: TLabel
-      Left = 14
-      Height = 15
-      Top = 13
-      Width = 22
-      Caption = 'Hue'
-      ParentColor = False
-    end
-    object ImgHue: TImage
-      Left = 14
-      Height = 16
-      Top = 32
-      Width = 256
-    end
-    object TkbHue: TTrackBar
-      Left = 8
-      Height = 25
-      Top = 53
-      Width = 270
-      Frequency = 60
-      Max = 360
-      OnChange = OnHSVChange
-      Position = 0
-      TabOrder = 0
-    end
-    object ImgSaturation: TImage
-      Left = 14
-      Height = 16
-      Top = 99
-      Width = 256
-    end
-    object TkbSaturation: TTrackBar
-      Left = 8
-      Height = 25
-      Top = 120
-      Width = 270
-      Frequency = 60
-      Max = 255
-      OnChange = OnHSVChange
-      Position = 0
-      TabOrder = 1
-    end
-    object LblSaturation: TLabel
-      Left = 14
-      Height = 15
-      Top = 80
-      Width = 54
-      Caption = 'Saturation'
-      ParentColor = False
-    end
-    object TkbValue: TTrackBar
-      Left = 8
-      Height = 25
-      Top = 189
-      Width = 270
-      Frequency = 60
-      Max = 255
-      OnChange = OnHSVChange
-      Position = 0
-      TabOrder = 2
-    end
-    object ImgValue: TImage
-      Left = 14
-      Height = 16
-      Top = 168
-      Width = 256
-    end
-    object LblValue: TLabel
-      Left = 14
-      Height = 15
-      Top = 149
-      Width = 28
-      Caption = 'Value'
-      ParentColor = False
-    end
-    object LblHueOutput: TLabel
-      Left = 236
-      Height = 15
-      Top = 13
-      Width = 22
-      Caption = 'Hue'
-      ParentColor = False
-    end
-    object LblSatOutput: TLabel
-      Left = 236
-      Height = 15
-      Top = 80
-      Width = 16
-      Caption = 'Sat'
-      ParentColor = False
-    end
-    object LblValueOutput: TLabel
-      Left = 236
-      Height = 15
-      Top = 152
-      Width = 28
-      Caption = 'Value'
-      ParentColor = False
-    end
-  end
-  object GrbColor: TGroupBox
-    Left = 19
-    Height = 105
-    Top = 264
-    Width = 573
-    Caption = 'Color'
-    ClientHeight = 85
-    ClientWidth = 569
-    TabOrder = 2
-    object ShpColor: TShape
-      Left = 16
-      Height = 65
-      Top = 6
-      Width = 539
-      Pen.Color = clNone
-    end
-  end
-  object LblColorCode: TLabel
-    Left = 19
-    Height = 15
-    Top = 384
-    Width = 31
-    Caption = 'Code:'
-    ParentColor = False
-  end
-  object LblOutput: TLabel
-    Left = 54
-    Height = 15
-    Top = 384
-    Width = 54
-    Caption = 'LblOutput'
-    ParentColor = False
-  end
-  object BtnToClipboard: TBitBtn
-    Left = 19
-    Height = 30
-    Hint = 'Copy to clipboard'
-    Top = 408
-    Width = 75
-    Glyph.Data = {
-      36040000424D3604000000000000360000002800000010000000100000000100
-      2000000000000004000064000000640000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000292623FF292623FF292623FF2926
-      23FF292623FF292623FF292623FF292623FF0000000000000000000000000000
-      000000000000000000000000000000000000292623FF00000000000000000000
-      0000000000000000000000000000292623FF0000000000000000000000000000
-      000000000000292623FF292623FF292623FF292623FF00000000000000000000
-      0000000000000000000000000000292623FF0000000000000000000000000000
-      000000000000292623FF0000000000000000292623FF00000000000000000000
-      0000000000000000000000000000292623FF0000000000000000000000000000
-      000000000000292623FF0000000000000000292623FF00000000000000000000
-      0000000000000000000000000000292623FF0000000000000000000000000000
-      000000000000292623FF0000000000000000292623FF00000000000000000000
-      0000000000000000000000000000292623FF0000000000000000000000000000
-      000000000000292623FF0000000000000000292623FF00000000000000000000
-      0000292623FF292623FF292623FF292623FF0000000000000000000000000000
-      000000000000292623FF0000000000000000292623FF00000000000000000000
-      0000292623FF292623FF292623FF292624880000000000000000000000000000
-      000000000000292623FF0000000000000000292623FF00000000000000000000
-      0000292623FF292623FF29262488000000000000000000000000000000000000
-      000000000000292623FF0000000000000000292623FF292623FF292623FF2926
-      23FF292623FF2926248800000000000000000000000000000000000000000000
-      000000000000292623FF000000000000000000000000292623FF292623FF2926
-      2488000000000000000000000000000000000000000000000000000000000000
-      000000000000292623FF292623FF292623FF292623FF292623FF292624880000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000
-    }
-    OnClick = BtnToClipboardClick
-    ParentShowHint = False
-    ShowHint = True
-    TabOrder = 3
   end
 end

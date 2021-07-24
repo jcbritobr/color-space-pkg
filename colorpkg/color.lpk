@@ -11,11 +11,16 @@
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="1">
+    <Version Release="1" Build="2"/>
+    <Files Count="2">
       <Item1>
         <Filename Value="hsv.pas"/>
         <UnitName Value="HSV"/>
       </Item1>
+      <Item2>
+        <Filename Value="cmy.pas"/>
+        <UnitName Value="CMY"/>
+      </Item2>
     </Files>
     <RequiredPkgs Count="1">
       <Item1>
