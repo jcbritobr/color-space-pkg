@@ -5,14 +5,12 @@ unit HSV;
 interface
 
 uses
-  Classes, SysUtils, LCLType, Math;
+  Classes, SysUtils, LCLType, Math, ColorSpace;
 
 type
-  TChangeValueEvent = procedure(ASender: TObject) of object;
-
   { THSVColorSpace }
 
-  THSVColorSpace = class
+  THSVColorSpace = class(IColorSpace)
   private
     FHue: Integer;
     FSaturation: Integer;
@@ -29,7 +27,7 @@ type
     constructor Create;
     constructor Create(AHue, ASaturation, AValue: Integer);
     function ToRGBTriple: TRGBTriple;
-    procedure FromRGBTriple(ARGB: TRGBTriple);
+    procedure FromRGB(const ARed, AGreen, ABlue: Byte);
     property Hue: Integer read GetHue write SetHue;
     property Saturation: Integer read GetSaturation write SetSaturation;
     property Value: Integer read GetValue write SetValue;
@@ -145,14 +143,17 @@ begin
   end;
 end;
 
-procedure THSVColorSpace.FromRGBTriple(ARGB: TRGBTriple);
+procedure THSVColorSpace.FromRGB(const ARed, AGreen, ABlue: Byte);
 var
+  ColorData: TRGBTriple;
   Delta: Integer;
   Min: Integer;
 begin
-
-  Min := MinValue([ARGB.rgbtRed, ARGB.rgbtGreen, ARGB.rgbtBlue]);
-  FValue := MaxValue([ARGB.rgbtRed, ARGB.rgbtGreen, ARGB.rgbtBlue]);
+  ColorData.rgbtRed := ARed;
+  ColorData.rgbtGreen := AGreen;
+  ColorData.rgbtBlue := ABlue;
+  Min := MinValue([ColorData.rgbtRed, ColorData.rgbtGreen, ColorData.rgbtBlue]);
+  FValue := MaxValue([ColorData.rgbtRed, ColorData.rgbtGreen, ColorData.rgbtBlue]);
 
   Delta := FValue - Min;
 
@@ -166,7 +167,7 @@ begin
     FHue := 0 // Achromatic: When Saturation = 0, Hue is undefined
   else
   begin // Chromatic
-    with ARGB do
+    with ColorData do
     begin
       if rgbtRed = FValue then // Degrees between yellow and magenta
         FHue := MulDiv(rgbtGreen - rgbtBlue, 60, Delta)

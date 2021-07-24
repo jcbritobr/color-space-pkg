@@ -459,7 +459,7 @@ object FrmMainFrame: TFrmMainFrame
           Pen.Color = clNone
         end
       end
-      object LblColorCode1: TLabel
+      object LblCMYColorCode: TLabel
         Left = 4
         Height = 15
         Top = 264

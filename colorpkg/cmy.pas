@@ -5,14 +5,12 @@ unit CMY;
 interface
 
 uses
-  Classes, SysUtils, LCLType;
+  Classes, SysUtils, LCLType, ColorSpace;
 
 type
-  TChangeValueEvent = procedure(ASender: TObject) of object;
-
   { TCMYColorSpace }
 
-  TCMYColorSpace = class
+  TCMYColorSpace = class(IColorSpace)
   private
     FCyan: Byte;
     FMagenta: Byte;
@@ -28,7 +26,7 @@ type
     constructor Create;
     constructor Create(ACyan, AMagenta, AYellow: Byte);
     function ToRGBTriple: TRGBTriple;
-    procedure FromRGB(ARed, AGreen, ABlue: Byte);
+    procedure FromRGB(const ARed, AGreen, ABlue: Byte);
     function ToString: Ansistring; override;
     property Cyan: Byte read GetCyan write SetCyan;
     property Magenta: Byte read GetMagenta write SetMagenta;
@@ -104,7 +102,7 @@ begin
   Result.rgbtBlue := 255 - FYellow;
 end;
 
-procedure TCMYColorSpace.FromRGB(ARed, AGreen, ABlue: Byte);
+procedure TCMYColorSpace.FromRGB(const ARed, AGreen, ABlue: Byte);
 begin
   FCyan := 255 - ARed;
   FMagenta := 255 - AGreen;

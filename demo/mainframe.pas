@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ComCtrls,
-  ExtCtrls, LCLType, Buttons, HSV, CMY, Clipbrd;
+  ExtCtrls, LCLType, Buttons, HSV, CMY, ColorSpace, Clipbrd;
 
 type
   THSVGradient = (GrHue, GrSaturation, GrValue);
@@ -31,7 +31,7 @@ type
     ImgValue: TImage;
     ImgYellow: TImage;
     LblBlueOutput: TLabel;
-    LblColorCode1: TLabel;
+    LblCMYColorCode: TLabel;
     LblGreenOutput: TLabel;
     LblCyan: TLabel;
     LblCyanOutput: TLabel;
@@ -101,16 +101,21 @@ implementation
 procedure TFrmMainFrame.FormCreate(Sender: TObject);
 begin
   FIsRGBProcessing := False;
+
   FHSVData := THSVColorSpace.Create;
   FCMYData := TCMYColorSpace.Create;
+
   FHSVData.OnChangeValue := @OnChangeHSVData;
   FCMYData.OnChangeValue := @OnChangeCMYData;
+
   CreateRGBGradient(1, 0, 0, ImgRed);
   CreateRGBGradient(0, 1, 0, ImgGreen);
   CreateRGBGradient(0, 0, 1, ImgBlue);
+
   CreateHSVGradient(GrHue, ImgHue);
   CreateHSVGradient(GrSaturation, ImgSaturation);
   CreateHSVGradient(GrValue, ImgValue);
+
   CreateRGBGradient(0, 1, 1, ImgCyan);
   CreateRGBGradient(1, 0, 1, ImgMagenta);
   CreateRGBGradient(1, 1, 0, ImgYellow);
@@ -139,7 +144,7 @@ begin
       else
         ;
     end;
-    FHSVData.FromRGBTriple(ColorData);
+    FHSVData.FromRGB(ColorData.rgbtRed, ColorData.rgbtGreen, ColorData.rgbtBlue);
   end;
 end;
 
@@ -278,7 +283,7 @@ var
 begin
   if ASender <> nil then
   begin
-    ColorData := THSVColorSpace(ASender).ToRGBTriple;
+    ColorData := (ASender as IColorSpace).ToRGBTriple;
 
     TkbHue.Position := FHSVData.Hue;
     TkbSaturation.Position := FHSVData.Saturation;
@@ -290,7 +295,6 @@ begin
       TkbGreen.Position := ColorData.rgbtGreen;
       TkbBlue.Position := ColorData.rgbtBlue;
     end;
-
 
     ShpColor.Brush.Color := RGBToColor(ColorData.rgbtRed, ColorData.rgbtGreen,
       ColorData.rgbtBlue);
