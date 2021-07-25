@@ -5,8 +5,8 @@ unit MainFrame;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ComCtrls,
-  ExtCtrls, LCLType, Buttons, HSV, CMY, ColorSpace, Clipbrd;
+  Classes, Windows, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ComCtrls,
+  ExtCtrls, LCLType, Buttons, HSV, CMY, ColorSpace, Clipbrd, MacbethColor, Printers;
 
 type
   THSVGradient = (GrHue, GrSaturation, GrValue);
@@ -16,11 +16,14 @@ type
   TFrmMainFrame = class(TForm)
     BtnToClipboard: TBitBtn;
     BtnCMYToClipboard: TBitBtn;
+    BtnMacbethPrint: TButton;
+    BtnMacbethSave: TButton;
     GrbCMY: TGroupBox;
     GrbRGB: TGroupBox;
     GrbHSV: TGroupBox;
     GrbColor: TGroupBox;
     GbColor: TGroupBox;
+    ImgMacbethColors: TImage;
     ImgBlue: TImage;
     ImgCyan: TImage;
     ImgSaturation: TImage;
@@ -30,6 +33,7 @@ type
     ImgMagenta: TImage;
     ImgValue: TImage;
     ImgYellow: TImage;
+    LblMacbethColor: TLabel;
     LblBlueOutput: TLabel;
     LblCMYColorCode: TLabel;
     LblGreenOutput: TLabel;
@@ -55,6 +59,7 @@ type
     PgMain: TPageControl;
     ShpCMYColor: TShape;
     ShpColor: TShape;
+    TbMacbeth: TTabSheet;
     TbHSV: TTabSheet;
     TbCMY: TTabSheet;
     TkbBlue: TTrackBar;
@@ -66,8 +71,12 @@ type
     TkbMagenta: TTrackBar;
     TkbValue: TTrackBar;
     TkbYellow: TTrackBar;
+    procedure BtnMacbethPrintClick(Sender: TObject);
+    procedure BtnMacbethSaveClick(Sender: TObject);
     procedure BtnToClipboardClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure ImgMacbethColorsMouseMove(Sender: TObject; Shift: TShiftState;
+      X, Y: Integer);
     procedure OnRGBChange(Sender: TObject);
     procedure OnCMYChange(Sender: TObject);
     procedure OnRGBPress(Sender: TObject; Button: TMouseButton;
@@ -84,6 +93,7 @@ type
     procedure CreateHSVGradient(const Gradient: THSVGradient; const Image: TImage);
     procedure OnChangeHSVData(ASender: TObject);
     procedure OnChangeCMYData(ASender: TObject);
+    procedure DrawMacbethChart(const ACanvas: TCanvas);
   public
     destructor Destroy; override;
 
@@ -107,6 +117,7 @@ begin
 
   FHSVData.OnChangeValue := @OnChangeHSVData;
   FCMYData.OnChangeValue := @OnChangeCMYData;
+  DrawMacbethChart(ImgMacbethColors.Canvas);
 
   CreateRGBGradient(1, 0, 0, ImgRed);
   CreateRGBGradient(0, 1, 0, ImgGreen);
@@ -121,6 +132,21 @@ begin
   CreateRGBGradient(1, 1, 0, ImgYellow);
 end;
 
+procedure TFrmMainFrame.ImgMacbethColorsMouseMove(Sender: TObject;
+  Shift: TShiftState; X, Y: Integer);
+var
+  LocalColor: TColor;
+begin
+  LocalColor := ImgMacbethColors.Canvas.Pixels[X, Y];
+  if LocalColor <> clBlack then
+  begin
+    LblMacbethColor.Caption :=
+      ColorToString(LocalColor) + Format(' RGB(%d, %d, %d)',
+      [GetRValue(LocalColor), GetGValue(LocalColor), GetBValue(LocalColor)]);
+  end;
+
+end;
+
 procedure TFrmMainFrame.BtnToClipboardClick(Sender: TObject);
 var
   ColorData: TRGBTriple;
@@ -128,6 +154,29 @@ begin
   ColorData := FHSVData.ToRGBTriple;
   ClipBoard.AsText := '#' + IntToHex(ColorData.rgbtRed, 2) +
     IntToHex(ColorData.rgbtGreen, 2) + IntToHex(ColorData.rgbtBlue, 2);
+end;
+
+procedure TFrmMainFrame.BtnMacbethPrintClick(Sender: TObject);
+begin
+  Screen.Cursor := crHourGlass;
+  try
+    Printer.Orientation := poLandscape;
+    Printer.BeginDoc;
+    DrawMacbethChart(Printer.Canvas);
+    Printer.EndDoc;
+    ShowMessage('Macbeth color chart printed.');
+  finally
+    Screen.Cursor := crDefault;
+  end;
+end;
+
+procedure TFrmMainFrame.BtnMacbethSaveClick(Sender: TObject);
+begin
+  if ImgMacbethColors.Picture.Jpeg <> nil then
+  begin
+    ImgMacbethColors.Picture.Jpeg.SaveToFile('macbethcolors.jpg');
+    ShowMessage('Image saved with success');
+  end;
 end;
 
 procedure TFrmMainFrame.OnRGBChange(Sender: TObject);
@@ -317,11 +366,51 @@ var
 begin
   LblCMYOutput.Caption := (ASender as TCMYColorSpace).ToString;
   ColorData := (ASender as TCMYColorSpace).ToRGBTriple;
-  LblCyanOutput.Caption:= (ASender as TCMYColorSpace).Cyan.ToString;
-  LblMagentaOutput.Caption:= (ASender as TCMYColorSpace).Magenta.ToString;
-  LblYellowOutput.Caption:= (ASender as TCMYColorSpace).Yellow.ToString;
-  ShpCMYColor.Brush.Color := RGBToColor(ColorData.rgbtRed,
-    ColorData.rgbtGreen, ColorData.rgbtBlue);
+  LblCyanOutput.Caption := (ASender as TCMYColorSpace).Cyan.ToString;
+  LblMagentaOutput.Caption := (ASender as TCMYColorSpace).Magenta.ToString;
+  LblYellowOutput.Caption := (ASender as TCMYColorSpace).Yellow.ToString;
+  ShpCMYColor.Brush.Color := RGBToColor(ColorData.rgbtRed, ColorData.rgbtGreen,
+    ColorData.rgbtBlue);
+end;
+
+procedure TFrmMainFrame.DrawMacbethChart(const ACanvas: TCanvas);
+const
+  ColumnCount = 6;
+  RowCount = 4;
+  ActualSeparator = 5;
+  ActualWidth = 40;
+  ActualHeight = 40;
+  TotalWidth = (ColumnCount + 1) * ActualSeparator + ColumnCount * ActualWidth;
+  TotalHeight = (RowCount + 1) * ActualSeparator + RowCount * ActualHeight;
+var
+  AHeight: Integer;
+  I: Integer;
+  IPixel: Integer;
+  J: Integer;
+  JPixel: Integer;
+  PatchHeight: Integer;
+  PatchIndex: Integer;
+  PatchWidth: Integer;
+  AWidth: Integer;
+begin
+  ACanvas.Brush.Color := clBlack;
+  ACanvas.Rectangle(ACanvas.ClipRect.Left, ACanvas.ClipRect.Top,
+    ACanvas.ClipRect.Right, ACanvas.ClipRect.Bottom);
+
+  AWidth := ACanvas.ClipRect.Right - ACanvas.ClipRect.Left;
+  AHeight := ACanvas.ClipRect.Bottom - ACanvas.ClipRect.Top;
+
+  PatchWidth := (ActualWidth * AWidth) div TotalWidth;
+  PatchHeight := (ActualHeight * AHeight) div TotalHeight;
+  for PatchIndex := Low(MacbethColors) to High(MacbethColors) do
+  begin
+    J := (PatchIndex - 1) div ColumnCount;
+    I := (PatchIndex - 1) mod ColumnCount;
+    IPixel := ((ActualSeparator * (I + 1) + ActualWidth * I) * AWidth) div TotalWidth;
+    JPixel := ((ActualSeparator * (J + 1) + ActualHeight * J) * AHeight) div TotalHeight;
+    ACanvas.Brush.Color := MacbethColors[PatchIndex];
+    ACanvas.Rectangle(IPixel, JPixel, IPixel + PatchWidth, JPixel + PatchHeight);
+  end;
 end;
 
 destructor TFrmMainFrame.Destroy;

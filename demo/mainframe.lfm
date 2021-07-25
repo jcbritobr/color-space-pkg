@@ -523,5 +523,43 @@ object FrmMainFrame: TFrmMainFrame
         TabOrder = 2
       end
     end
+    object TbMacbeth: TTabSheet
+      Caption = 'Macbeth Color Checker'
+      ClientHeight = 456
+      ClientWidth = 593
+      object ImgMacbethColors: TImage
+        Left = 8
+        Height = 392
+        Top = 8
+        Width = 568
+        OnMouseMove = ImgMacbethColorsMouseMove
+      end
+      object BtnMacbethPrint: TButton
+        Left = 8
+        Height = 25
+        Top = 424
+        Width = 75
+        Caption = 'Print'
+        OnClick = BtnMacbethPrintClick
+        TabOrder = 0
+      end
+      object BtnMacbethSave: TButton
+        Left = 96
+        Height = 25
+        Top = 424
+        Width = 75
+        Caption = 'Save'
+        OnClick = BtnMacbethSaveClick
+        TabOrder = 1
+      end
+      object LblMacbethColor: TLabel
+        Left = 192
+        Height = 15
+        Top = 424
+        Width = 6
+        Caption = '0'
+        ParentColor = False
+      end
+    end
   end
 end

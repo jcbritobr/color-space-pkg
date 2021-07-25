@@ -12,7 +12,7 @@
       </SearchPaths>
     </CompilerOptions>
     <Version Release="1" Build="2"/>
-    <Files Count="3">
+    <Files Count="4">
       <Item1>
         <Filename Value="hsv.pas"/>
         <UnitName Value="HSV"/>
@@ -23,8 +23,12 @@
       </Item2>
       <Item3>
         <Filename Value="colorspace.pas"/>
-        <UnitName Value="colorspace"/>
+        <UnitName Value="ColorSpace"/>
       </Item3>
+      <Item4>
+        <Filename Value="macbethcolor.pas"/>
+        <UnitName Value="macbethcolor"/>
+      </Item4>
     </Files>
     <RequiredPkgs Count="1">
       <Item1>

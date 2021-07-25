@@ -149,9 +149,7 @@ var
   Delta: Integer;
   Min: Integer;
 begin
-  ColorData.rgbtRed := ARed;
-  ColorData.rgbtGreen := AGreen;
-  ColorData.rgbtBlue := ABlue;
+  ColorData:= CreateRGBTriple(ARed, AGreen, ABlue);
   Min := MinValue([ColorData.rgbtRed, ColorData.rgbtGreen, ColorData.rgbtBlue]);
   FValue := MaxValue([ColorData.rgbtRed, ColorData.rgbtGreen, ColorData.rgbtBlue]);
 
